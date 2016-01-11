@@ -1,5 +1,4 @@
 class Api::V1::LoansController < ApplicationController
-  responds_to :json
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     render json: 'not_found', status: :not_found

@@ -1,5 +1,4 @@
 class Api::V1::PaymentsController < ApplicationController
-  responds_to :json
 
   def index
     render json: Payment.all
