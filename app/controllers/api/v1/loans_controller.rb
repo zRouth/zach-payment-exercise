@@ -1,0 +1,15 @@
+class Api::V1::LoansController < ApplicationController
+  responds_to :json
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render json: 'not_found', status: :not_found
+  end
+
+  def index
+    render json: Loan.all
+  end
+
+  def show
+    render json: Loan.find(params[:id])
+  end
+end
