@@ -15,7 +15,8 @@ RSpec.describe Api::V1::PaymentsController, type: :controller do
   end
 
   describe '#show' do
-    let(:payment) { Payment.create!(amount: 70.0, payment_date: Time.now) }
+    let(:loan) { Loan.create(funded_amount: 200.00)}
+    let(:payment) { Payment.create(amount: 70.00, payment_date: Time.now, loan_id: 1) }
 
     it 'responds with a 200' do
       get :show, id: payment.id

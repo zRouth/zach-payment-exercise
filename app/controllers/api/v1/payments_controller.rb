@@ -17,7 +17,10 @@ end
 private
 
   def payment_params
-    params.require(:payment).permit(:amount, :payment_date, :loan_id)
+    params.require(:payment).permit(:payment_amount_cannot_exceed_loan_amount,
+                                    :amount,
+                                    :payment_date,
+                                    :loan_id)
   end
 
 
