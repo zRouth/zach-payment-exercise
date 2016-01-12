@@ -1,17 +1,14 @@
 class Payment < ActiveRecord::Base
   belongs_to :loan
 
-  validates :payment_amount_cannot_exceed_loan_amount,
-            :amount,
+  validates :amount,
             :payment_date,
             :loan_id, presence: true
 
+  validate :payment_amount_cannot_exceed_loan_amount
+
   def payment_amount_cannot_exceed_loan_amount
-    if self.loan
-      validate_amount
-    else
-      true
-    end
+    self.loan ? validate_amount : true
   end
 
   def validate_amount
