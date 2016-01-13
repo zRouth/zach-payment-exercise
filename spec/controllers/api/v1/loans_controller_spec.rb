@@ -31,7 +31,14 @@ RSpec.describe Api::V1::LoansController, type: :controller do
         expect(response).to have_http_status(:ok)
       end
 
+      it 'exposes the outstanding balance' do
+        get :show, id: loan.id
 
+        # binding.pry
+        body = JSON.parse(response.body)
+        raise body.keys.include?("outstanding_balance").inspect
+        expect(body.keys.include?("outstanding_balance")).to be true
+      end
     end
   end
 

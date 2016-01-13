@@ -11,4 +11,5 @@ class Api::V1::LoansController < ApplicationController
   def show
     render json: Loan.find(params[:id])
   end
+
 end
