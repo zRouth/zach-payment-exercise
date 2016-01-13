@@ -2,9 +2,13 @@ Rails.application.routes.draw do
   resources :loans, defaults: {format: :json}
 
   namespace :api do
-    namespace :v1 do
-      resources :loans, defaults: { format: 'json' }
-      resources :payments, defaults: { format: 'json' }
+    namespace :v1, defaults: { format: 'json' } do
+      resources :payments, only: [:index, :show, :create]
+      resources :loans, only: [:index, :show] do
+        member do
+          get "outstanding_balance"
+        end
+      end
     end
   end
 

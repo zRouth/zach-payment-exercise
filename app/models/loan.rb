@@ -3,7 +3,15 @@ class Loan < ActiveRecord::Base
 
   validates :funded_amount, presence: true
 
-  def calculate_outstanding_balance
-    # funded_amount - self.payments.amount
+  def calculate_outstanding_balance(loan_id)
+    funded_amount - total_payments(loan_id)
+  end
+
+  def total_payments(loan_id)
+    Payment.where(loan_id: loan_id).sum(:amount)
   end
 end
+
+
+
+
