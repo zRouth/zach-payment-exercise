@@ -12,7 +12,6 @@ class Loan < ActiveRecord::Base
   end
 
    def as_json(options = {})
-    # binding.pry
     loan_hash = super(options || {})
     loan_hash.merge({
       outstanding_balance: calculate_outstanding_balance

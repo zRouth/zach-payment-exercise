@@ -34,10 +34,37 @@ RSpec.describe Api::V1::LoansController, type: :controller do
       it 'exposes the outstanding balance' do
         get :show, id: loan.id
 
-        # binding.pry
         body = JSON.parse(response.body)
-        raise body.keys.include?("outstanding_balance").inspect
         expect(body.keys.include?("outstanding_balance")).to be true
+      end
+
+      it 'exposes and calculates outstanding balance correctly for payment' do
+        get :show, id: loan.id
+
+        body = JSON.parse(response.body)
+        expect(body.keys.include?("outstanding_balance")).to be true
+
+        loan.payments.create(amount: 20.00, payment_date: Time.now)
+
+        get :show, id: loan.id
+
+        body = JSON.parse(response.body)
+        expect(body["outstanding_balance"]).to eq("80.0")
+      end
+
+      it 'exposes and calculates outstanding balance correctly for multiple payments' do
+        get :show, id: loan.id
+
+        body = JSON.parse(response.body)
+        expect(body.keys.include?("outstanding_balance")).to be true
+
+        loan.payments.create(amount: 20.00, payment_date: Time.now)
+        loan.payments.create(amount: 20.00, payment_date: Time.now)
+
+        get :show, id: loan.id
+
+        body = JSON.parse(response.body)
+        expect(body["outstanding_balance"]).to eq("60.0")
       end
     end
   end
