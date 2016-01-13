@@ -12,7 +12,7 @@ class Payment < ActiveRecord::Base
   end
 
   def validate_amount
-    if amount > self.loan.funded_amount
+    if amount > self.loan.calculate_outstanding_balance
       errors.add(:amount, "cannot be greater than your funded amount")
     end
   end
