@@ -21,17 +21,17 @@ RSpec.describe Loan, type: :model do
     end
 
     it "can calculate the total payments" do
-      expect(loan.total_payments(loan.id)).to eq(80.90.to_d)
+      expect(loan.total_payments).to eq(80.90.to_d)
     end
 
     it "can calculate the outstanding balance" do
-      expect(loan.calculate_outstanding_balance(loan.id)).to eq(20.09)
+      expect(loan.calculate_outstanding_balance).to eq(20.09)
     end
 
     it "can calculate the outstanding balance of 2 payments" do
       payment2 = Payment.create(amount: 10.00, payment_date: Time.now, loan_id: loan.id)
       payment2
-      expect(loan.calculate_outstanding_balance(loan.id)).to eq(10.09)
+      expect(loan.calculate_outstanding_balance).to eq(10.09)
     end
   end
 

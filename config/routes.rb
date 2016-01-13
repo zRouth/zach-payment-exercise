@@ -4,11 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       resources :payments, only: [:index, :show, :create]
-      resources :loans, only: [:index, :show] do
-        member do
-          get "outstanding_balance"
-        end
-      end
+      resources :loans, only: [:index, :show]
     end
   end
 
